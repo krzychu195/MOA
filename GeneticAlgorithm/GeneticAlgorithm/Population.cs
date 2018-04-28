@@ -1,32 +1,82 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace GeneticAlgorithm
 {
     public class Population
     {
-        private int _x;
-        private int _y;
-        private Parser DestinationFunction { get; set; }
+        private List<Individual> _population;
 
-        public Population(Parser parser)
+        public Population()
         {
-            DestinationFunction = parser;
+            _population = new List<Individual>();
         }
 
-        public Population(int x, int y)
+        public Population(List<Individual> population)
         {
-            _x = x;
-            _y = y;
+            _population = new List<Individual>();
+             _population = population;
         }
 
-        public float getFitness()//zwraca nie wiem co :) trzeba ogarnąć czym jest dopasowanie
-        // w oparciu o funkcję celu więc możliwe, że ona będzie argumentem
+        public void GeneratePopulationOfSize(FunctionStruct function1, FunctionStruct function2, Constraints constraints, int N)
         {
-            return DestinationFunction.Expression("");
+            for (var i = 0; i < N; i++)
+            {
+                var args = constraints.GenerateArguments();
+                var individual = new Individual();
+                individual.GenerateIndividual(function1, function2, args);
+                _population.Add(individual);
+            }
+        }        
+
+        public Individual GetIndividual(int i)
+        {
+            return _population[i];
         }
+
+        public void Add(Individual population)
+        {
+            _population.Add(population);
+        }
+
+        public List<Population> DevidePopulation()
+        {
+            var FirstSet = new Population();
+            var SecondSet = new Population();
+            var populationMiddle = _population.Count / 2;
+
+            for (var i = 0; i < populationMiddle; i++)
+            {
+                FirstSet.Add(_population[i]);
+            }
+
+            for (var i = populationMiddle; i < _population.Count; i++)
+            {
+                SecondSet.Add(_population[i]);
+            }
+
+            var devidedPopulations = new List<Population> {FirstSet, SecondSet};
+
+            return devidedPopulations;
+        }
+
+        public void SortF1()
+        {
+            _population.Sort((ind1, ind2) => ind1.GetFitness1().CompareTo(ind2.GetFitness1()));
+        }
+        public void SortF2()
+        {
+            _population.Sort((ind1, ind2) => ind1.GetFitness2().CompareTo(ind2.GetFitness2()));
+        }
+
+        public int Size()
+        {
+            return _population.Count;
+        }
+
+        public void DeleteIndividual(int i)
+        {
+            _population.RemoveAt(i);
+        }
+
     }
 }
