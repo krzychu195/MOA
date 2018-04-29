@@ -14,7 +14,7 @@ namespace GeneticAlgorithm
         public Population(List<Individual> population)
         {
             _population = new List<Individual>();
-             _population = population;
+            _population = population;
         }
 
         public void GeneratePopulationOfSize(FunctionStruct function1, FunctionStruct function2, Constraints constraints, int N)
@@ -76,6 +76,14 @@ namespace GeneticAlgorithm
         public void DeleteIndividual(int i)
         {
             _population.RemoveAt(i);
+        }
+
+        public void GenerateProbabilities()
+        {
+            for (var i = 0; i < _population.Count; i++)
+            {
+                _population[i].GenerateProbability();
+            }
         }
 
     }

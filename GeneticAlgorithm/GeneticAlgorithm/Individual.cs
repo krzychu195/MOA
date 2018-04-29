@@ -10,6 +10,9 @@ namespace GeneticAlgorithm
         private double _f1;
         private double _f2;
         private List<int> _args;
+        private double _crossingProbability;
+        private double _mutationProbability;
+
 
         public Individual()
         {
@@ -43,6 +46,23 @@ namespace GeneticAlgorithm
 
             _f1 = f1.GetResult();
             _f2 = f2.GetResult();
+        }
+
+        public void GenerateProbability()
+        {
+            Random random = new Random();
+            _crossingProbability = random.NextDouble();
+            _mutationProbability = random.NextDouble();
+        }
+
+        public double GetCrossingProbability()
+        {
+            return _crossingProbability;
+        }
+
+        public double GetMutationProbability()
+        {
+            return _mutationProbability;
         }
 
         public double GetFitness1()

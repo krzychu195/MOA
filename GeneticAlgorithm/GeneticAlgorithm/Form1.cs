@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace GeneticAlgorithm
 {
@@ -17,21 +18,24 @@ namespace GeneticAlgorithm
 
         private void button1_Click(object sender, EventArgs e)
         {
-            FunctionStruct functionStruct1= new FunctionStruct("f(x1,x2,x3)", func1.Text);
-            FunctionStruct functionStruct2 = new FunctionStruct("f(x1,x2,x3)", func2.Text);
+            FunctionStruct functionStruct1= new FunctionStruct(comboBox1.SelectedItem.ToString(), func1.Text);
+            FunctionStruct functionStruct2 = new FunctionStruct(comboBox1.SelectedItem.ToString(), func2.Text);
 
-            //_parser1 = new Parser("f(x1,x2,x3)", func1.Text);
-            //_parser1.SetArguments(new List<int> { 0, 1, 2 });
-            //_parser2 = new Parser("f(x1,x2,x3)", func2.Text);
-            //_parser2.SetArguments(new List<int> { 0, 1, 2 });
-            //var f1value = _parser1.GetResult();
-            //var f2value = _parser2.GetResult();
             Constraints constraints = new Constraints(new[] {-5, -4, -7}, new[] {5, 4, 7});
 
-            Vega vega = new Vega(10,4, 0.7, 0.6, functionStruct1, functionStruct2, constraints);
+            Vega vega = new Vega(int.Parse(popSize.Text), int.Parse(iterations.Text),
+                Double.Parse(crossingPb.Text, CultureInfo.InvariantCulture),
+                Double.Parse(mutationPb.Text, CultureInfo.InvariantCulture), functionStruct1, functionStruct2,
+                constraints);
             vega.Initialization();
-            var result = vega.Evaluate();
-        }
+            var result = vega.Iterate();
 
+            chart1.Series["Series1"].ChartType = SeriesChartType.Point;
+            for(var i=0;i<result.Size();i++)
+            {
+                chart1.Series["Series1"].Points.AddXY(result.GetIndividual(i).GetFitness1(),
+                    result.GetIndividual(i).GetFitness2());
+            }
+        }
     }
 }
