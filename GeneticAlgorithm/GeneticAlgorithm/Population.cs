@@ -86,5 +86,10 @@ namespace GeneticAlgorithm
             }
         }
 
+        public List<Individual> GetPopulation()
+        {
+            return _population;
+        }
+
     }
 }
