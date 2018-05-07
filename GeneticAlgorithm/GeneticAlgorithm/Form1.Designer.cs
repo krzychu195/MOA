@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.func1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -64,12 +64,13 @@
             this.tbU4 = new System.Windows.Forms.TextBox();
             this.tbL5 = new System.Windows.Forms.TextBox();
             this.tbU5 = new System.Windows.Forms.TextBox();
+            this.tbResult = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1070, 18);
+            this.button1.Location = new System.Drawing.Point(1050, 19);
             this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(112, 35);
@@ -188,18 +189,18 @@
             // 
             // chart1
             // 
-            chartArea6.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea6);
-            legend6.Name = "Legend1";
-            this.chart1.Legends.Add(legend6);
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
             this.chart1.Location = new System.Drawing.Point(302, 18);
             this.chart1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chart1.Name = "chart1";
-            series6.ChartArea = "ChartArea1";
-            series6.Legend = "Legend1";
-            series6.Name = "Series1";
-            this.chart1.Series.Add(series6);
-            this.chart1.Size = new System.Drawing.Size(772, 603);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart1.Series.Add(series2);
+            this.chart1.Size = new System.Drawing.Size(718, 526);
             this.chart1.TabIndex = 13;
             this.chart1.Text = "chart1";
             // 
@@ -389,11 +390,21 @@
             this.tbU5.Text = "5";
             this.tbU5.Visible = false;
             // 
+            // tbResult
+            // 
+            this.tbResult.Location = new System.Drawing.Point(1027, 68);
+            this.tbResult.Multiline = true;
+            this.tbResult.Name = "tbResult";
+            this.tbResult.ReadOnly = true;
+            this.tbResult.Size = new System.Drawing.Size(170, 473);
+            this.tbResult.TabIndex = 33;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1200, 692);
+            this.Controls.Add(this.tbResult);
             this.Controls.Add(this.tbU5);
             this.Controls.Add(this.tbL5);
             this.Controls.Add(this.tbU4);
@@ -471,6 +482,7 @@
         private System.Windows.Forms.TextBox tbU4;
         private System.Windows.Forms.TextBox tbL5;
         private System.Windows.Forms.TextBox tbU5;
+        private System.Windows.Forms.TextBox tbResult;
     }
 }
 

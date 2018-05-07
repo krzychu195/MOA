@@ -14,12 +14,18 @@ namespace GeneticAlgorithm
         public Form1()
         {
             InitializeComponent();
+            chart1.Legends.Clear();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             FunctionStruct functionStruct1= new FunctionStruct(comboBox1.SelectedItem.ToString(), func1.Text);
             FunctionStruct functionStruct2 = new FunctionStruct(comboBox1.SelectedItem.ToString(), func2.Text);
+
+            tbResult.Clear();
+            chart1.Series["Series1"].Points.Clear();
+            
+
 
             int lo = 0;
             int up = 0;
@@ -69,6 +75,8 @@ namespace GeneticAlgorithm
             {
                 chart1.Series["Series1"].Points.AddXY(result.GetIndividual(i).GetFitness1(),
                     result.GetIndividual(i).GetFitness2());
+                tbResult.AppendText(result.GetIndividual(i).GetFitness1().ToString()+"     ");
+                tbResult.AppendText(result.GetIndividual(i).GetFitness2().ToString()+"\n");
             }
         }
 
