@@ -8,9 +8,6 @@ namespace GeneticAlgorithm
 {
     public partial class Form1 : Form
     {
-        private Parser _parser1;
-        private Parser _parser2;
-
         public Form1()
         {
             InitializeComponent();
@@ -29,8 +26,9 @@ namespace GeneticAlgorithm
 
             int lo = 0;
             int up = 0;
-            int[] lotab = new int[5];
-            int[] uptab = new int[5];
+
+            int[] lotab = new int[comboBox1.SelectedIndex+1];
+            int[] uptab = new int[comboBox1.SelectedIndex+1];
 
             for (int i = 0; i <= comboBox1.SelectedIndex; i++)
             {
@@ -82,9 +80,6 @@ namespace GeneticAlgorithm
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int l = 0;
-            int u = 0;
-
             switch (comboBox1.SelectedIndex)
             {
                 case 0:
