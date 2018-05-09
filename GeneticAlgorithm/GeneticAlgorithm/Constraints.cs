@@ -18,11 +18,11 @@ namespace GeneticAlgorithm
             }
         }
 
-        public List<int> GenerateArguments()
+        public List<double> GenerateArguments()
         {
             var random = new Random();
 
-            return _constraints.Select(t => random.Next(t.GetLowerConstraint(), t.GetUpperConstraint())).ToList();
+            return _constraints.Select(t => random.NextDouble() * (t.GetUpperConstraint() - t.GetLowerConstraint()) + t.GetLowerConstraint()).ToList();
         }
     }
 }

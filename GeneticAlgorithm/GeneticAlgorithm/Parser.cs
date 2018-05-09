@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using org.mariuszgromada.math.mxparser;
 
 
@@ -17,13 +18,12 @@ namespace GeneticAlgorithm
             f = new Function(_base+"="+function);
         }
         
-        public void SetArguments(List<int> argumentsValues)
+        public void SetArguments(List<double> argumentsValues)
         {
             _x = new List<Argument>();
             var argsNumber = argumentsValues.Count;
-            for (int i = 1; i < argsNumber+1; i++)
-                _x.Add(new Argument("x" + i + "=" + argumentsValues[i-1]));
-
+            for (int i = 1; i < argsNumber + 1; i++)
+                _x.Add(new Argument("x" + i, argumentsValues[i-1]));
             if (argsNumber == 1)
             {
                 _expression = new Expression(_base, f, _x[0]);
@@ -46,9 +46,9 @@ namespace GeneticAlgorithm
             }
         }
 
-        public double GetResult()
+        public decimal GetResult()
         {
-            return _expression.calculate();
+            return (decimal)_expression.calculate();
         }
 
     }

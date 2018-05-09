@@ -17,7 +17,7 @@ namespace GeneticAlgorithm
             _population = population;
         }
 
-        public void GeneratePopulationOfSize(FunctionStruct function1, FunctionStruct function2, Constraints constraints, int N)
+        public List<Individual> GeneratePopulationOfSize(FunctionStruct function1, FunctionStruct function2, Constraints constraints, int N)
         {
             for (var i = 0; i < N; i++)
             {
@@ -26,6 +26,7 @@ namespace GeneticAlgorithm
                 individual.GenerateIndividual(function1, function2, args);
                 _population.Add(individual);
             }
+            return _population;
         }        
 
         public Individual GetIndividual(int i)

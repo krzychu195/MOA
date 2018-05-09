@@ -31,14 +31,13 @@ namespace GeneticAlgorithm
             _iterations = iterations;
         }
 
-        public void Initialization()
+        public List<Individual> Initialization()
         {
-            _beginingPopulation.GeneratePopulationOfSize(_function1, _function2, _constraints, _populationSize);
+            return _beginingPopulation.GeneratePopulationOfSize(_function1, _function2, _constraints, _populationSize);
         }
 
         public Population SetFitnessAndSelection()
         {
-            double selectionPercentage = 0.8;
             _matingPool = new Population();
 
             int numberOfCiterions = 2;
@@ -49,7 +48,7 @@ namespace GeneticAlgorithm
 
             for (int i = 0; i < numberOfCiterions; i++)
             {
-                for (int j = 0; j < (int)_subPopulations[i].Size()*selectionPercentage; j++)
+                for (int j = 0; j < (int)_subPopulations[i].Size(); j++)
                 {
                     if (i == 0)
                     {
@@ -116,6 +115,7 @@ namespace GeneticAlgorithm
             _beginingPopulation = _populationAfterMutation;
             return _populationAfterMutation;
         }
+        
 
         public Population Iterate()
         {

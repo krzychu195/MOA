@@ -18,8 +18,10 @@ namespace GeneticAlgorithm
         {
             FunctionStruct functionStruct1= new FunctionStruct(comboBox1.SelectedItem.ToString(), func1.Text);
             FunctionStruct functionStruct2 = new FunctionStruct(comboBox1.SelectedItem.ToString(), func2.Text);
+            Population nonDominatedPopulation = new Population();
 
             tbResult.Clear();
+            chart2.Visible = false;
             chart1.Series["Series1"].Points.Clear();
             
 
@@ -68,13 +70,37 @@ namespace GeneticAlgorithm
             vega.Initialization();
             var result = vega.Iterate();
 
-            chart1.Series["Series1"].ChartType = SeriesChartType.Point;
-            for(var i=0;i<result.Size();i++)
+            for (var i = 0; i < result.Size(); i++)
             {
-                chart1.Series["Series1"].Points.AddXY(result.GetIndividual(i).GetFitness1(),
-                    result.GetIndividual(i).GetFitness2());
-                tbResult.AppendText(result.GetIndividual(i).GetFitness1().ToString()+"     ");
-                tbResult.AppendText(result.GetIndividual(i).GetFitness2().ToString()+"\n");
+                List<double> args1 = new List<double>();
+                List<double> args2 = new List<double>();
+                for (var j = 0; j < comboBox1.SelectedIndex + 1; j++)
+                {
+                    args1.Add(((double)result.GetIndividual(i).GetFitness1()));
+                    args2.Add(((double)result.GetIndividual(i).GetFitness2()));
+                }
+
+                if (result.GetIndividual(i).GetFitness1() < result.GetIndividual(i).GetValue1ForIndividual(functionStruct1, functionStruct2, args1) 
+                    && result.GetIndividual(i).GetFitness2() < result.GetIndividual(i).GetValue2ForIndividual(functionStruct1, functionStruct2, args2))
+                {
+                    nonDominatedPopulation.Add(result.GetIndividual(i));
+                }
+            }
+
+
+            chart1.Series["Series1"].ChartType = SeriesChartType.Point;
+            tbResult.AppendText("f1   f2 | x1 x2 x3 x4 x5\n");
+            for(var i=0;i< nonDominatedPopulation.Size();i++)
+            {
+                chart1.Series["Series1"].Points.AddXY(nonDominatedPopulation.GetIndividual(i).GetFitness1(),
+                    nonDominatedPopulation.GetIndividual(i).GetFitness2());
+                tbResult.AppendText(nonDominatedPopulation.GetIndividual(i).GetFitness1().ToString()+"   ");
+                tbResult.AppendText(nonDominatedPopulation.GetIndividual(i).GetFitness2().ToString()+" | ");
+                for(var j=0;j< nonDominatedPopulation.GetIndividual(i).GetArgsVector().Count; j++)
+                {
+                    tbResult.AppendText(nonDominatedPopulation.GetIndividual(i).GetArgsVector()[j].ToString() + "  ");
+                }
+                tbResult.AppendText("\n");
             }
         }
 
@@ -122,9 +148,20 @@ namespace GeneticAlgorithm
                     lbX4.Visible = true; tbL4.Visible = true; tbU4.Visible = true;
                     lbX5.Visible = true; tbL5.Visible = true; tbU5.Visible = true;
                     break;
-
             }
         }
-        
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            chart2.Visible = false;
+            chart1.Visible = true;
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            chart1.Visible = false;
+            chart2.Visible = true;
+        }
     }
 }
