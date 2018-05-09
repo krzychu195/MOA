@@ -69,19 +69,22 @@ namespace GeneticAlgorithm
                 constraints);
             vega.Initialization();
             var result = vega.Iterate();
-
-            for (var i = 0; i < result.Size(); i++)
+            var index = 0;
+            if (result.GetIndividual(0).GetFitness2() < result.GetIndividual(1).GetFitness2())
+            { 
+                nonDominatedPopulation.Add(result.GetIndividual(0));
+            }
+            else
             {
-                List<double> args1 = new List<double>();
-                List<double> args2 = new List<double>();
-                for (var j = 0; j < comboBox1.SelectedIndex + 1; j++)
-                {
-                    args1.Add(((double)result.GetIndividual(i).GetFitness1()));
-                    args2.Add(((double)result.GetIndividual(i).GetFitness2()));
-                }
+                nonDominatedPopulation.Add(result.GetIndividual(1));
+                index = 1;
+            }
 
-                if (result.GetIndividual(i).GetFitness1() < result.GetIndividual(i).GetValue1ForIndividual(functionStruct1, functionStruct2, args1) 
-                    && result.GetIndividual(i).GetFitness2() < result.GetIndividual(i).GetValue2ForIndividual(functionStruct1, functionStruct2, args2))
+            for (var i = 1; i < result.Size(); i++)
+            {
+                result.SortF1();
+
+                if (result.GetIndividual(i).GetFitness2() < nonDominatedPopulation.GetIndividual(nonDominatedPopulation.Size()-1).GetFitness2())
                 {
                     nonDominatedPopulation.Add(result.GetIndividual(i));
                 }
