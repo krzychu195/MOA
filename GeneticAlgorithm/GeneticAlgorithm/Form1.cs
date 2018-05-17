@@ -79,15 +79,18 @@ namespace GeneticAlgorithm
                 nonDominatedPopulation.Add(result.GetIndividual(1));
                 index = 1;
             }
-
+            result.SortF1();
             for (var i = 1; i < result.Size(); i++)
             {
-                result.SortF1();
-
-                if (result.GetIndividual(i).GetFitness2() < nonDominatedPopulation.GetIndividual(nonDominatedPopulation.Size()-1).GetFitness2())
+                if (result.GetIndividual(i).GetFitness2() < nonDominatedPopulation.GetIndividual(nonDominatedPopulation.Size() - 1).GetFitness2())
                 {
                     nonDominatedPopulation.Add(result.GetIndividual(i));
                 }
+            }
+
+            if (nonDominatedPopulation.GetIndividual(0).GetFitness1() > nonDominatedPopulation.GetIndividual(1).GetFitness1())
+            {
+                nonDominatedPopulation.DeleteIndividual(0);
             }
 
 
