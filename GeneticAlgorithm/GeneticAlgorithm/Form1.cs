@@ -67,9 +67,10 @@ namespace GeneticAlgorithm
                 Double.Parse(crossingPb.Text, CultureInfo.InvariantCulture),
                 Double.Parse(mutationPb.Text, CultureInfo.InvariantCulture), functionStruct1, functionStruct2,
                 constraints);
-            vega.Initialization();
+            var beggining = vega.Initialization();
             var result = vega.Iterate();
             var index = 0;
+
             if (result.GetIndividual(0).GetFitness2() < result.GetIndividual(1).GetFitness2())
             { 
                 nonDominatedPopulation.Add(result.GetIndividual(0));
@@ -79,10 +80,19 @@ namespace GeneticAlgorithm
                 nonDominatedPopulation.Add(result.GetIndividual(1));
                 index = 1;
             }
+
             result.SortF1();
-            for (var i = 1; i < result.Size(); i++)
+            chart2.Series["Series1"].ChartType = SeriesChartType.Point;
+
+            for (var i = 0; i < result.Size(); i++)
             {
-                if (result.GetIndividual(i).GetFitness2() < nonDominatedPopulation.GetIndividual(nonDominatedPopulation.Size() - 1).GetFitness2())
+                chart2.Series["Series1"].Points.AddXY(result.GetIndividual(i).GetFitness1(),
+                    result.GetIndividual(i).GetFitness2());
+            }
+
+            for (var i = index; i < result.Size(); i++)
+            {
+                if (result.GetIndividual(i).GetFitness2() <= nonDominatedPopulation.GetIndividual(nonDominatedPopulation.Size() - 1).GetFitness2())
                 {
                     nonDominatedPopulation.Add(result.GetIndividual(i));
                 }
